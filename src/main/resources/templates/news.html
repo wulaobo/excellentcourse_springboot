@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>文章详情页</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="col-md-7 col-md-offset-2 main" >
+    <section class="blockGroup">
+        <span><h2 class="s_title" th:text="${news.title}"></h2></span>
+        <div class="views">
+            <time th:text="'发布于:'+${news.time}"></time>-
+            <span th:text="${news.id}"></span> 次检阅
+<!--            <shiro:hasRole name="admin">-->
+<!--                <a href="${APP_PATH }/getNews?id=<c:out value="${news.id}" />">编辑</a>-->
+<!--            </shiro:hasRole>-->
+        </div>
+        <article class="single">
+            <div id="text">
+<!--                ${news.article}-->
+                <p th:utext="${news.article}"></p>
+            </div>
+        </article>
+    </section>
+</div>
+</body>
+</html>
