@@ -1,0 +1,43 @@
+.pageSidebar{
+    width: 240px;
+    height:100%;
+    padding-bottom: 30px;
+    overflow: auto;
+    background-color: #e3e3e3;
+}
+.splitter {
+    width: 3px;
+    height: 100%;
+    bottom: 0;
+    left: 240px;
+    position: absolute;
+    overflow: hidden;
+    background-color: #555;
+}
+.pageContent{
+    height: 100%;
+    min-width: 768px;
+    left: 246px;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    padding-bottom: 30px;
+    position: absolute;
+}
+.pageContainer{
+    bottom: 0;
+    left:0;
+    right: 0;
+    top: 53px;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+}
+#copyright {
+    margin-top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+}

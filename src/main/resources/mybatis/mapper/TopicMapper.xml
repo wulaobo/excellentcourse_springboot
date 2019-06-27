@@ -4,5 +4,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wulaobo.mapper.TopicMapper">
 
+   <!--添加帖子 -->
+   <insert id="addTopic" parameterType="topic">
+       insert into t_topic (title,pubtime,detail,edituser) values (#{title},#{pubtime},#{detail},#{edituser})
+   </insert>
+
+    <select id="getAllTopic" parameterType="String" resultType="topic">
+        select * from t_topic where edituser = #{edituser}
+    </select>
+
+    <select id="getTopicById" parameterType="Integer" resultType="topic">
+        select * from t_topic where id = #{id}
+    </select>
+
+    <update id="editTopic" parameterType="topic">
+        update t_topic set title = #{title}, pubtime = #{pubtime}, detail = #{detail} where id = #{id}
+    </update>
+
+    <delete id="deleteTopicById" parameterType="Integer">
+        delete from t_topic where id = #{id}
+    </delete>
 
 </mapper>

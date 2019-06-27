@@ -5,43 +5,14 @@
     <title>精品课程</title>
 
     <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
-
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/style2.css">
-    <script type="text/javascript" src="../static/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{../static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../static/css/style2.css}">
+    <script type="text/javascript" th:src="@{../static/js/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{../static/bootstrap/js/bootstrap.min.js}"></script>
     
 </head>
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">巢湖学院《数字电视原理与应用》精品课程</a>
-        </div>
-        <div>
-            <ul class="nav navbar-nav">
-                <li><a href="getAllNews">首页</a></li>
-                <li><a href="/getAllVideo">视频教程</a></li>
-                <li><a href="/getAllSource2">资料下载</a></li>
-                <li><a href="/selectAllTopic2">留言板</a></li>
-                <li><a href="/frontPage/home.html">个人中心</a></li>
-                <li><a href="toAbout">关于</a></li>
-            </ul>
-                            <ul class="nav navbar-nav navbar-right" th:if="${username==null}">
-                                <li><a href="toLogin">登录</a></li>
-                                <li><a href="toRegister">注册</a></li>
-                            </ul>
-
-                            <ul class="nav navbar-nav navbar-right" th:if="${username!=null}">
-                                <li><a href="#" th:text="'欢迎你，'+${username }"></a></li>
-                                <li><a href="logout">退出登陆</a></li>
-                            </ul>
-
-        </div>
-    </div>
-</nav>
-
+<div th:replace="header::header1"></div>
 
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <!-- ol指示器  ol标签与ul标签不同 ol为是有序列表 ul为是无序列表 -->
@@ -134,8 +105,6 @@
                     </th:block>
                 </ul>
 
-
-
             <ul class="pagination">
                 <li th:if="${pageInfo.hasPreviousPage}">
                     <a th:href="@{'/page/'+${pageInfo.pageNum-1}}">上一页</a>
@@ -149,12 +118,6 @@
         </div>
     </div>
 </div>
-<!--<%@include file="footer.jsp" %>-->
-<div id="copyright">
-    <h4> 巢湖学院@<span>www.chu.edu.cn</span></h4>
-
-    <h4><span>皖ICP备案020533号</span></h4>
-    <h4><span>地址 ：安徽省合肥市巢湖半汤度假区</span></h4>
-</div>
+<div th:replace="footer::footer1"></div>
 </body>
 </html>

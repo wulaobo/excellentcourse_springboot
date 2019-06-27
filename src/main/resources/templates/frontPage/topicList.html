@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <h2 class="sub-header">我发表的帖子</h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>标题</th>
+            <th>发表时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody th:if="${topicList!=null}">
+        <div th:each="topic:${topicList.list}">
+            <tr>
+                <td th:text="${topic.id}"></td>
+                <td th:text="${topic.title}"></td>
+                <td th:text="${topic.pubtime}"></td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button"
+                                class="btn btn-sm btn-default dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                            操作 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{'getTopicById?id='+${topic.id }}">修改</a></li>
+                            <li><a th:href="@{'deleteTopicById?id='+${topic.id }}">删除</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </div>
+
+        </tbody>
+    </table>
+    <!-- 分页信息 -->
+    <div class="col-md-6">
+        当前<span class="label label-default" th:text="${topicList.pageNum }"></span>页
+        |总<span class="label label-default" th:text="${topicList.pages }"></span>页
+        |有<span class="label label-default" th:text="${topicList.total }"></span>个帖子.
+    </div>
+    <div class="col-md-6">
+        <nav aria-label="Page navigation">
+            <ul class="pagination" >
+                <li><a th:href="@{'getAllTopic?pageNum=1&edituser='+${session.user.getUsername()}}">首页</a></li>
+
+                <li th:if="${topicList.hasPreviousPage}">
+                    <a th:href="@{'getAllTopic?pageNum='+${topicList.pageNum-1}+'&edituser='+${session.user.getUsername()}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+<!--                th:each="navigatepageNums:${topicList.navigatepageNums}"-->
+<!--                    <li class="active" th:if="${navigatepageNums==topicList.pageNum }">-->
+<!--                        <a th:href="@{'getAllTopic?pageNum='+${navigatepageNums}+'&edituser='+${session.user.getUsername()}}" th:text="${navigatepageNums }"></a></li>-->
+<!--                    <li th:if="${navigatepageNums!=topicList.pageNum }"><a-->
+<!--                            th:href="@{'getAllTopic?pageNum='+${navigatepageNums}+'&edituser='+${session.user.getUsername()}}" th:text="${navigatepageNums }"></a>-->
+<!--                    </li>-->
+
+                <li th:if="${topicList.hasNextPage}">
+                    <a th:href="@{'getAllTopic?pageNum='+${topicList.pageNum+1}+'&edituser='+${session.user.getUsername()}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+
+                <li><a th:href="@{'getAllTopic?pageNum='+${topicList.pages }+'&edituser='+${session.user.getUsername()}}">末页</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

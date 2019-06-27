@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>个人中心</title>
+<!--    <link href="${APP_PATH}/static/img/secured.jpg" rel="shortcut icon">-->
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style2.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/style4.css}" >
+</head>
+<body>
+<!--顶部导航栏部分-->
+<div th:replace="header::header1"></div>
+<!-- 中间主体内容部分 -->
+<div class="pageContainer">
+    <!-- 左侧导航栏 -->
+    <div class="pageSidebar">
+        <a th:href="@{toUpdateUser}" target="mainFrame" class="btn"><i class="glyphicon glyphicon-user"></i>修改用户信息</a><br/>
+        <a th:href="toAddTopicPage" target="mainFrame" class="btn"><i class="glyphicon glyphicon-edit"></i>发布帖子</a><br/>
+        <a th:href="'getAllTopic?edituser='+${session.user.getUsername()}" target="mainFrame" class="btn"><i class="glyphicon glyphicon-tags"></i>帖子管理</a>
+    </div>
+    <!-- 左侧导航和正文内容的分隔线 -->
+    <div class="splitter"></div>
+    <!-- 正文内容部分 -->
+    <div class="pageContent">
+
+        <h1>欢迎进入个人中心</h1>
+    </div>
+</div>
+<!-- 底部页脚部分 -->
+<div th:replace="footer::footer1"></div>
+</body>
+</html>

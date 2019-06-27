@@ -8,4 +8,6 @@ public interface UserService {
     void save(User user);
 
     User getUserByUserName(String username);
+
+    void updatePasswordByUserName(String md5Pwd, String userName);
 }

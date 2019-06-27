@@ -1,11 +1,10 @@
-package com.wulaobo.mapper;
+package com.wulaobo.service;
 
 import com.wulaobo.bean.Topic;
 
 import java.util.ArrayList;
 
-public interface TopicMapper {
-
+public interface TopicService {
     boolean addTopic(Topic topic);
 
     ArrayList<Topic> getAllTopic(String edituser);

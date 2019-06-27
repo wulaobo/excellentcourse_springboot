@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -27,13 +30,11 @@ public class UserController {
         if(user!=null){
             //登陆成功
             request.getSession().setAttribute("user",user);
-            model.addAttribute("username",user.getUsername());
-
-            System.out.println(user);
             return "forward:/getAllNews";
         }else{
             //登陆失败
-            request.getSession().setAttribute("errorMsg","用户名或密码失败！");
+//            request.getSession().setAttribute("errorLogin","用户名或密码失败！");
+            model.addAttribute("errorLogin","用户名或密码失败！");
             return "login";
         }
 
@@ -52,7 +53,7 @@ public class UserController {
             model.addAttribute("success","注册成功,请登录！");
             return "login";
         }else{
-            model.addAttribute("errorMsg","名称不能重复");
+            model.addAttribute("errorRegister","名称不能重复");
             return "register";
         }
 
@@ -66,6 +67,21 @@ public class UserController {
         return "forward:/getAllNews";
     }
 
+
+    //修改用户
+    @RequestMapping(value = "/updateUser")
+    public String updateUser(@RequestParam(value = "username") String userName, @RequestParam(value = "password") String password,
+                             @RequestParam(value = "email") String email, ModelMap model) {
+        User user = userService.getUserByUserName(userName);
+        if(user!=null) {
+            String md5Pwd = MD5Utils.md5(password);
+//            user.setPassword(md5Pwd);
+//            userService.save(user);
+            userService.updatePasswordByUserName(md5Pwd,userName);
+            model.addAttribute("updateSuccess","修改成功，请重新登录！");
+        }
+        return "redirect:/toLogin";
+    }
 
 
 

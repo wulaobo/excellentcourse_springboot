@@ -16,5 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from t_user where username=#{username}
    </select>
 
+   <update id="updatePasswordByUserName" parameterType="String">
+       update t_user set password = #{md5Pwd} where username = #{userName}
+   </update>
 
 </mapper> 

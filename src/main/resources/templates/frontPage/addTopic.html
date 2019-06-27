@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>发布帖子</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" charset="utf-8"
+            th:src="@{/static/ckeditor/ckeditor.js}"></script>
+</head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
+    <form action="addTopic" method="post">
+<!--        <input type="hidden" name="editUser">-->
+        <div class="table-responsive">
+            <h2 class="sub-header">发布帖子</h2>
+            <div class="col-md-11">
+                <input type="text" class="form-control" name="title" id="title" placeholder="在此输入标题" >
+                <textarea id="article" name="detail" placeholder="在此输入内容...">在此输入内容</textarea>
+                <script type="text/javascript">
+                    CKEDITOR.replace("article");
+                </script>
+            </div>
+            <div class="col-md-11">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">发布选项</h3>
+                    </div>
+                    <div class="panel-body">
+                        <button class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
