@@ -20,4 +20,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        update t_user set password = #{md5Pwd} where username = #{userName}
    </update>
 
+
 </mapper> 

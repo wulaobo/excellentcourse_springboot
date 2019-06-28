@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>互动交流</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" charset="utf-8"
+            th:src="@{/static/ckeditor/ckeditor.js}"></script>
+</head>
+<body>
+
+<div class="col-md-8 col-md-offset-2 main" >
+    <table width="100%" style="margin-top:8px;">
+        <tr bgcolor="#a8d7f1">
+            <td align="left" height="30" style="color:#ffffff;font-weight: bold;padding-left:8px">
+<!--                <c:out value="" />-->
+                <span th:text="${topic.title}"></span>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" style="margin-top:8px;border: 1px solid #4dffff;">
+        <tr style="border: 1px solid #4dffff;">
+            <td width="20%" bgcolor="#e8e9f9" rowspan="3" style="border: 1px solid #4dffff;">
+                <table width="100%" >
+                    <tr>
+                        <td align="left" valign="middle" style="padding-left:30px;">
+                            <img th:src="@{/static/img/photo.jpg}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top:10px;;padding-left:30px;font-weight: bold;" align="left">
+                            <span th:text="${topic.edituser }"></span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td width="80%" height="24" align="left" bgcolor="#e8e9f9">
+                <table width="100%">
+                    <tr>
+                        <td align="left" height="24" style="padding-left:10px;">发表于：<span th:text="${topic.pubtime}"></span></td>
+                        <td align="right" style="padding-right:10px;font-weight: bold;">楼主</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td height="160" bgcolor="#e8e9f9" align="left" valign="top" style="padding:10px;">
+<!--                <c:out value="" escapeXml="false"/>-->
+                <span th:utext="${topic.detail}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#e8e9f9" height="24" style="border: 1px solid #4dffff;">
+                <table width="100%">
+                    <tr>
+                        <td align="left" height="24" style="padding-left:10px;">回复次数：<span th:text="${replyNum}"></span></td>
+                        <td align="right" style="padding-right:10px;font-weight: bold;"><a href="#">TOP</a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+<!--    <c:if test="${!empty lists}">-->
+        <div th:if="${topicList!=null}">
+            <div th:each="top:${topicList}">
+<!--        <c:forEach var="lists" items="${lists}" >-->
+                <div th:each="answer:${top.answer}">
+<!--            <c:forEach var="answer" items="${}" varStatus="vs">-->
+                <table width="100%" style="margin-top:8px;border: 1px solid #4dffff;">
+                    <tr style="border: 1px solid #4dffff;">
+                        <td width="20%" rowspan="3" style="border: 1px solid #4dffff;">
+                            <table width="100%" >
+                                <tr>
+                                    <td align="left" valign="middle" style="padding-left:30px;">
+                                        <img th:src="@{/static/img/photo.jpg}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top:10px;;padding-left:30px;font-weight: bold;" align="left">
+<!--                                        <c:out value=""/>-->
+                                        <span th:text="${answer.answeruser }"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="80%" height="24" align="left">
+                            <table width="100%">
+                                <tr>
+                                    <td align="left" height="24" style="padding-left:10px;">发表于：<span th:text="${answer.pubtime2}"></span></td>
+<!--                                    <td align="right" style="padding-right:10px;font-weight: bold;">#<span th:text="${vs.index+1}"></span>楼</td>-->
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="160" align="left" valign="top" style="padding:10px;">
+                            <span th:if="${answer.state2==0}">该回复已被屏蔽！！！</span>
+
+
+                                <div th:if="${answer.state2==1}">
+                                    <span th:utext="${answer.content}"></span>
+                                </div>
+<!--                                <c:out value="" escapeXml="false"/>-->
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="24" style="border: 1px solid #4dffff;">
+                            <table width="100%">
+                                <tr>
+                                    <td align="right" style="padding-right:10px;font-weight: bold;"><a href="#">TOP</a></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+
+            </div>
+
+</div>
+    <form action="addAnswer" method="post">
+        <input type="hidden" name="answeruser" th:value="${session.user.getUsername() }">
+        <input type="hidden" name="topicId" th:value="${topic.id }">
+        <div class="table-responsive">
+            <h5 class="sub-header">回复主题:</h5>
+            <div>
+                <textarea id="article" name="content">在此输入内容...</textarea>
+                <script type="text/javascript">
+                    CKEDITOR.replace("article");
+                </script>
+                <div class="panel-body">
+                    <button class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>

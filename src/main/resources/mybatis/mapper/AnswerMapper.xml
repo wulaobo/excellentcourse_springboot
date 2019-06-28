@@ -4,5 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wulaobo.mapper.AnswerMapper">
 
+    <select id="getReplyNumById" parameterType="Integer" resultType="int">
+        select count(*) from t_answer where topicId = #{topicId}
+    </select>
+
+
+    <insert id="addAnswer" parameterType="answer">
+        insert into t_answer (content,answeruser,pubtime2,topicId) values (#{content},#{answeruser},#{pubtime2},#{topicId})
+    </insert>
 
 </mapper>

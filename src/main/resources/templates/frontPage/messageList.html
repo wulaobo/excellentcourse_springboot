@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>互动交流</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style3.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--顶部导航栏部分-->
+<div th:replace="header::header1"></div>
+<div class="container">
+    <div class="col-md-7 col-md-offset-2 main">
+        <h3 class="text-info">所有留言</h3><br/>
+        <div th:each="topics:${topicLists.list}">
+            <div>
+                <span th:text="${topics.title}"></span>
+                <div class="text-right">[发布人:<span th:text="${topics.edituser}"></span>][时间:<span th:text="${topics.pubtime }"></span>]</div>
+            </div>
+            <div class="text-right">
+                <a th:href="@{'findTopicAnswerById?id='+${topics.id}}"><i>点击这里查看更多内容»»</i></a>
+            </div>
+            <hr/>
+        </div>
+    </div>
+    <!-- 分页信息 -->
+    <div class="col-md-6">
+        当前<span class="label label-default" th:text="${topicLists.pageNum }"></span>页
+        |总<span class="label label-default" th:text="${topicLists.pages }"></span>页
+        |有<span class="label label-default" th:text="${topicLists.total }"></span>个帖子.
+    </div>
+    <div class="col-md-3">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+            <li><a th:href="@{'getMessageTopicList?pageNum=1'+'&edituser='+${session.user.getUsername()}}">首页</a></li>
+
+                <li th:if="${topicLists.hasPreviousPage}">
+                    <a th:href="@{'getMessageTopicList?pageNum='+${topicLists.pageNum-1}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+<!--            <c:forEach items="${topicLists.navigatepageNums}" var="navigatepageNums">-->
+<!--                <c:if test="${navigatepageNums==topicLists.pageNum }">-->
+<!--                    <li class="active"><a>${navigatepageNums }</a></li>-->
+<!--                </c:if>-->
+<!--                <c:if test="${navigatepageNums!=topicLists.pageNum }">-->
+<!--                    <li><a href="${APP_PATH}/selectAllTopic2?pn=${navigatepageNums}">${navigatepageNums }</a></li>-->
+<!--                </c:if>-->
+<!--            </c:forEach>-->
+
+                <li th:if="${topicLists.hasNextPage}">
+                    <a th:href="@{'getMessageTopicList?pageNum='+${topicLists.pageNum+1}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <li><a th:href="@{'getMessageTopicList?pageNum='+${topicLists.pages }+'&edituser='+${session.user.getUsername()}}" >末页</a></li>
+
+        </ul>
+        </nav>
+    </div>
+</div>
+<!-- 底部页脚部分 -->
+<div th:replace="footer::footer1"></div>
+</body>
+</html>

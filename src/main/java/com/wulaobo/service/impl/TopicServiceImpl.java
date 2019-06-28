@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TopicServiceImpl implements TopicService {
@@ -37,5 +38,15 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public boolean deleteTopicById(Integer id) {
         return topicMapper.deleteTopicById(id);
+    }
+
+    @Override
+    public List<Topic> getMessageTopicList(String edituser) {
+        return topicMapper.getMessageTopicList(edituser);
+    }
+
+    @Override
+    public List<Topic> findTopicAnswerById(Integer id) {
+        return topicMapper.findTopicAnswerById(id);
     }
 }

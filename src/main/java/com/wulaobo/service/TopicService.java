@@ -3,6 +3,7 @@ package com.wulaobo.service;
 import com.wulaobo.bean.Topic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface TopicService {
     boolean addTopic(Topic topic);
@@ -14,4 +15,8 @@ public interface TopicService {
     boolean editTopic(Topic topic);
 
     boolean deleteTopicById(Integer id);
+
+    List<Topic> getMessageTopicList(String edituser);
+
+    List<Topic> findTopicAnswerById(Integer id);
 }
