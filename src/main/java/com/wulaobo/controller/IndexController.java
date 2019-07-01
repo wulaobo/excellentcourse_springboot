@@ -1,6 +1,7 @@
 package com.wulaobo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,22 @@ public class IndexController {
     public String addTopic() {
         return "frontPage/addTopic";
     }
+
+    //跳转到登录页面
+    @GetMapping(value="/admin")
+    public String toAdminLogin() {
+        return "admin/adminLogin";
+    }
+
+   @GetMapping(value = "/toUpdateAdminPasswordPage")
+    public String toUpdateAdminPasswordPage(){
+        return "/admin/user/updateAdminPassword";
+   }
+
+   @GetMapping(value = "/toAddNewsPage")
+   public String  toAddNewsPage() {
+        return "admin/news/addNews";
+   }
 
 
 }

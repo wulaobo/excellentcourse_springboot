@@ -21,4 +21,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </update>
 
 
+    <!-- 管理员中的方法 -->
+    <select id="adminLogin" parameterType="String" resultType="user">
+        select * from t_user where username=#{username} and password=#{password}
+    </select>
+
+    <select id="getAllUser" resultType="user">
+        select * from t_user
+    </select>
+
+    <!-- 根据名称模糊查询用户 -->
+    <select id="selectByName" parameterType="String" resultType="user">
+        select * from t_user where username like '%${_parameter}%'
+    </select>
+
+    <delete id="deleteUserById" parameterType="Integer">
+        delete from t_user where id=#{id}
+    </delete>
+
+    <update id="changeRoleByUser" parameterType="user">
+        update t_user set roleId=#{roleId} where id=#{id}
+    </update>
+
+    <select id="getUserById" parameterType="Integer" resultType="user">
+        select * from t_user where id=#{id}
+    </select>
+
+    <update id="updateStateByUser" parameterType="user">
+        update t_user set state=#{state} where id=#{id}
+    </update>
+
+    <update id="updateAdminPassword" parameterType="user">
+        update t_user set password = #{password},username=#{username} where id=#{id}
+    </update>
 </mapper> 

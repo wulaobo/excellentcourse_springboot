@@ -1,19 +1,10 @@
-package com.wulaobo.mapper;
+package com.wulaobo.service;
 
 import com.wulaobo.bean.User;
 
 import java.util.List;
 
-public interface UserMapper {
-
-    User login(String username, String password);
-
-    void save(User user);
-
-    User getUserByUserName(String username);
-
-    void updatePasswordByUserName(String md5Pwd, String userName);
-
+public interface AdminService {
     User adminLogin(String username, String password);
 
     List<User> getAllUser();

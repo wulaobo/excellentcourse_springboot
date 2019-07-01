@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>网站后台文章列表</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <h1 th:text="${msg}"></h1>
+    <h2 class="sub-header">所有文章</h2>
+    <form class="navbar-form navbar-right" role="search" method="post" th:action="@{selectNewsByTitle}">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="请输入新闻标题关键字" name="title">
+        </div>
+        <button type="submit" class="btn navbar-btn">搜索</button>
+    </form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>标题</th>
+            <th>发布时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            <tr th:each="news:${newsList.list}">
+                <td th:text="${news.id}"></td>
+                <td th:text="${news.title}"></td>
+                <td th:text="${news.time}"></td>
+                <td>
+                        <div class="btn-group">
+                            <button type="button"
+                                    class="btn btn-sm btn-default dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                操作 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a th:href="@{'getNewsByIdAndAdmin?id='+${news.id}}">编辑</a></li>
+                                <li><a th:href="@{'deleteNewsById?id='+${news.id }}">删除</a></li>
+                            </ul>
+                        </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- 分页信息 -->
+    <div class="col-md-6">
+        当前<span class="label label-default" th:text="${newsList.pageNum }"></span>页
+        |总<span class="label label-default" th:text="${newsList.pages }"></span>页
+        |总<span class="label label-default" th:text="${newsList.total }"></span>篇文章.
+    </div>
+    <div class="col-md-6">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li><a th:href="@{getNewsList}">首页</a></li>
+
+                    <li th:if="${newsList.hasPreviousPage}">
+                        <a th:href="@{'getNewsList?pageNum='+${newsList.pageNum-1}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+<!--                </c:if>-->
+<!--                <c:forEach items="${news.navigatepageNums}" var="navigatepageNums">-->
+<!--                    <c:if test="${navigatepageNums==news.pageNum }">-->
+<!--                        <li class="active"><a>${navigatepageNums }</a></li>-->
+<!--                    </c:if>-->
+<!--                    <c:if test="${navigatepageNums!=news.pageNum }">-->
+<!--                        <li><a href="${APP_PATH}/anews?pn=${navigatepageNums}">${navigatepageNums }</a></li>-->
+<!--                    </c:if>-->
+<!--                </c:forEach>-->
+
+                    <li th:if="${newsList.hasNextPage}">
+                        <a th:href="@{'getNewsList?pageNum='+${newsList.pageNum+1}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+
+                <li><a th:href="@{'getNewsList?pageNum='+${newsList.pages }}">末页</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

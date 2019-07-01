@@ -9,4 +9,12 @@ public interface NewsMapper {
     List<News> getAllNews();
 
     News getNewsById(Integer id);
+
+    List<News> selectNewsByTitle(String title);
+
+    void updateNews(News news);
+
+    void deleteNewsById(Integer id);
+
+    void addNews(News news);
 }

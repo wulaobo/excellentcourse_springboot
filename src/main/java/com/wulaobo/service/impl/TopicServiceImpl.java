@@ -41,8 +41,8 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<Topic> getMessageTopicList(String edituser) {
-        return topicMapper.getMessageTopicList(edituser);
+    public List<Topic> getMessageTopicList() {
+        return topicMapper.getMessageTopicList();
     }
 
     @Override

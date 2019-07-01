@@ -17,7 +17,7 @@ public interface TopicMapper {
 
     boolean deleteTopicById(Integer id);
 
-    List<Topic> getMessageTopicList(String edituser);
+    List<Topic> getMessageTopicList();
 
     List<Topic> findTopicAnswerById(Integer id);
 }

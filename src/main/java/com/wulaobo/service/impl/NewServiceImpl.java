@@ -23,4 +23,24 @@ public class NewServiceImpl implements NewService {
     public News getNewsById(Integer id) {
         return newsMapper.getNewsById(id);
     }
+
+    @Override
+    public List<News> selectNewsByTitle(String title) {
+        return newsMapper.selectNewsByTitle(title);
+    }
+
+    @Override
+    public void updateNews(News news) {
+        newsMapper.updateNews(news);
+    }
+
+    @Override
+    public void deleteNewsById(Integer id) {
+        newsMapper.deleteNewsById(id);
+    }
+
+    @Override
+    public void addNews(News news) {
+        newsMapper.addNews(news);
+    }
 }

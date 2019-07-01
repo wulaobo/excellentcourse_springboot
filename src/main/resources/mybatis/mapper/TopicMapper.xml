@@ -46,8 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <!-- 查询其他用户的帖子 -->
-    <select id="getMessageTopicList" parameterType="String" resultType="topic">
-        select * from t_topic where edituser != #{edituser}
+    <select id="getMessageTopicList"  resultType="topic">
+        select * from t_topic
     </select>
 
     <select id="findTopicAnswerById" parameterType="Integer" resultMap="queryForListMap">

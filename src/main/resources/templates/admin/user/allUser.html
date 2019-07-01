@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>用户列表</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <h2 class="sub-header">所有用户</h2>
+    <!--搜索表单-->
+    <form class="navbar-form navbar-right" role="search" th:action="@{selectByName}">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="请输入用户名关键字" name="username">
+        </div>
+        <button type="submit" class="btn navbar-btn">搜索</button>
+    </form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>姓名</th>
+            <th>权限/分组</th>
+            <th>用户状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody th:if="${userList!=null}">
+
+                <tr th:each="user:${userList.list}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:switch="${user.roleId==1}">
+                        <span th:case="true">管理员</span>
+                        <span th:case="false">用户</span>
+
+                    </td>
+                    <td th:switch="${user.state==2}">
+                        <span th:case="true">用户账号未激活</span>
+                        <span th:case="false">用户账号已激活</span>
+
+                    </td>
+                    <td>
+
+                            <div class="btn-group">
+                                <button type="button"
+                                        class="btn btn-sm btn-default dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    操作 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a th:href="@{'changeRoleById?id='+${user.id}}">更改用户分组</a></li>
+                                    <li><a th:href="@{'changeStateById?id='+${user.id}}">更改用户状态</a></li>
+                                    <li><a th:href="@{'deleteUserById?id='+${user.id }}">删除</a></li>
+                                </ul>
+                            </div>
+
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+    <!-- 分页信息 -->
+    <div class="col-md-6">
+        当前<span class="label label-default" th:text="${userList.pageNum }"></span>页
+        |总<span class="label label-default" th:text="${userList.pages }"></span>页
+        |有<span class="label label-default" th:text="${userList.total }"></span>位用户.
+    </div>
+    <div class="col-md-6">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li><a th:href="@{'getAllUser?pageNum=1'}">首页</a></li>
+
+                    <li th:if="${userList.hasPreviousPage}">
+                        <a th:href="@{'getAllUser?pageNum='+${userList.pageNum-1}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+
+                    <li th:if="${userList.hasNextPage}">
+                        <a th:href="@{'getAllUser?pageNum='+${userList.pageNum+1}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+
+                <li><a th:href="@{'getAllUser?pageNum='+${userList.pages }}">末页</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

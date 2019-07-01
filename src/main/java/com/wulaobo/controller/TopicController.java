@@ -94,11 +94,11 @@ public class TopicController {
     public String getMessageTopicList(HttpServletRequest request,
                                       @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum, ModelMap model) {
 
-        User user = (User) request.getSession().getAttribute("user");
-        String edituser = user.getUsername();
+//        User user = (User) request.getSession().getAttribute("user");
+//        String edituser = user.getUsername();
 
         PageHelper.startPage(pageNum,5);
-        List<Topic> list =topicService.getMessageTopicList(edituser);
+        List<Topic> list =topicService.getMessageTopicList();
         PageInfo pageInfo = new PageInfo(list);
         model.addAttribute("topicLists",pageInfo);
         return "frontPage/messageList";
