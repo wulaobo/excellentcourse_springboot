@@ -6,6 +6,8 @@ import com.wulaobo.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnswerServiceImpl implements AnswerService {
 
@@ -20,5 +22,25 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public boolean addAnswer(Answer answer) {
         return answerMapper.addAnswer(answer);
+    }
+
+    @Override
+    public List<Answer> getAllAnswer() {
+        return answerMapper.getAllAnswer();
+    }
+
+    @Override
+    public boolean deleteAnswerById(Integer id) {
+        return answerMapper.deleteAnswerById(id);
+    }
+
+    @Override
+    public Answer getAnswerById(Integer id) {
+        return answerMapper.getAnswerById(id);
+    }
+
+    @Override
+    public void updateStateByAnswer(Answer answer) {
+        answerMapper.updateStateByAnswer(answer);
     }
 }

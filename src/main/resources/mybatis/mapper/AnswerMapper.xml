@@ -13,4 +13,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into t_answer (content,answeruser,pubtime2,topicId) values (#{content},#{answeruser},#{pubtime2},#{topicId})
     </insert>
 
+    <select id="getAllAnswer" resultType="answer">
+        select * from t_answer
+    </select>
+
+    <delete id="deleteAnswerById">
+        delete from t_answer where id=#{id}
+    </delete>
+
+    <select id="getAnswerById" parameterType="Integer" resultType="answer">
+        select * from t_answer where id=#{id}
+    </select>
+
+    <update id="updateStateByAnswer" parameterType="answer">
+        update t_answer set state2=#{state2} where id=#{id}
+    </update>
+
 </mapper>

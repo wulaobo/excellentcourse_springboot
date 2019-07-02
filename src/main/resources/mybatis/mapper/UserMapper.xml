@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.wulaobo.mapper.UserMapper">
 
    <select id="login" parameterType="String" resultType="user">
-        select * from t_user where username=#{username} and password=#{password}
+        select * from t_user where username=#{username} and password=#{password} and roleId != 1
     </select>
 
    <insert id="save" parameterType="user">
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 管理员中的方法 -->
     <select id="adminLogin" parameterType="String" resultType="user">
-        select * from t_user where username=#{username} and password=#{password}
+        select * from t_user where username=#{username} and password=#{password} and roleId=1
     </select>
 
     <select id="getAllUser" resultType="user">

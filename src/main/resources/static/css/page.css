@@ -1,0 +1,112 @@
+body {
+	background-color: #f3f3f3;
+}
+.jumbotron {
+	background: transparent;
+}
+.table>tbody>tr>td, 
+.table>tbody>tr>th, 
+.table>tfoot>tr>td, 
+.table>tfoot>tr>th, 
+.table>thead>tr>td, 
+.table>thead>tr>th{
+	border-top:1px solid #000 ;	
+	text-align: center;
+	line-height: 50px;
+}
+.table>tbody>tr>th.commentbox {
+	text-align: left;
+}
+#editor {
+	max-height: 250px;
+	height: 250px;
+	background-color: white;
+	color: #999;
+	border-collapse: separate; 
+	border: 1px solid rgb(204, 204, 204); 
+	padding: 4px; 
+	box-sizing: content-box; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+	overflow: scroll;
+	outline: none;
+	font-size: 14px;
+}
+#voiceBtn {
+  width: 20px;
+  color: transparent;
+  background-color: transparent;
+  transform: scale(2.0, 2.0);
+  -webkit-transform: scale(2.0, 2.0);
+  -moz-transform: scale(2.0, 2.0);
+  border: transparent;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+div[data-role="editor-toolbar"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.dropdown-menu a {
+  cursor: pointer;
+}
+.form-control {
+	/*width: auto;*/
+}
+.editTypeChange {
+	padding: 6px 12px!important;
+	margin: 10px;
+}
+.eidtType {
+	width: auto;
+	margin: 10px;
+	padding: 0;
+	outline: none;
+}
+.titleEdit {
+	height: 40px!important;
+	
+}
+.edit form input.form-control {
+    display: block;
+    width: 100%;
+    height: 33px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+#cropedBigImg {
+	width: 100%;
+	height: 100%;
+	max-width: 600px;
+	max-height: 400px;
+}
+h3.updatatip {
+	color: #942a25;
+	display: inline-block;
+}
+.sendObject {
+	width:70%;
+}
+@media only screen and (max-width:1200px ) {
+	.welcomewrap .sendObject .form-horizontal {
+		text-align: left;
+	}
+}

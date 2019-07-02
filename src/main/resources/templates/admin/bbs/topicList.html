@@ -1,10 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>帖子列表</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
-
+<div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <h2 class="sub-header">所有帖子</h2>
+    <!--搜索表单-->
+   <form class="navbar-form navbar-right"  method="get" role="search" th:action="@{getTopicByName}">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="请输入用户名关键字" name="edituser">
+    </div>
+    <button type="submit" class="btn navbar-btn">搜索</button>
+</form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>帖子名称</th>
+            <th>具体内容</th>
+            <th>帖子作者</th>
+            <th>发布时间</th>
+            <th>帖子状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody th:if="${topicList != null}">
+<!--        <c:if test="${!empty topicLists}">-->
+<!--            <c:forEach var="topic" items="${topicLists.list}">-->
+                <tr th:each="topic:${topicList.list}">
+                    <td th:text="${topic.id}"></td>
+                    <td th:text="${topic.title}"></td>
+                    <td th:utext="${topic.detail }"></td>
+                    <td th:text="${topic.edituser}"></td>
+                    <td th:text="${topic.pubtime }"></td>
+                    <td th:switch="${topic.state==2}">
+                        <span th:case="true">帖子已屏蔽</span>
+                        <span th:case="false">帖子正常</span>
+<!--                        <c:if test="${topic.state==0}">-->
+<!--                            帖子已屏蔽-->
+<!--                        </c:if>-->
+<!--                        <c:if test="${topic.state==1}">-->
+<!--                            开启帖子-->
+<!--                        </c:if>-->
+                    </td>
+                    <td>
+<!--                        <shiro:hasRole name="admin">-->
+                            <div class="btn-group">
+                                <button type="button"
+                                        class="btn btn-sm btn-default dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    操作 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                        <li><a th:href="@{'updateStateByIdAdmin?id='+${topic.id}}">更改帖子状态</a></li>
+                                    <li><a th:href="@{'deleteTopicByIdAdmin?id='+${topic.id }}">删除帖子</a></li>
+                                </ul>
+                            </div>
+<!--                        </shiro:hasRole>-->
+                    </td>
+                </tr>
+<!--            </c:forEach>-->
+<!--        </c:if>-->
+        </tbody>
+    </table>
+    <!-- 分页信息 -->
+    <div class="col-md-6">
+        当前<span class="label label-default" th:text="${topicList.pageNum }"></span>页
+        |总<span class="label label-default" th:text="${topicList.pages }"></span>页
+        |有<span class="label label-default" th:text="${topicList.total }"></span>个主题.
+    </div>
+    <div class="col-md-6">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li><a th:href="@{getAllTopicByAdmin}">首页</a></li>
+<!--                <c:if test="">-->
+                    <li th:if="${topicList.hasPreviousPage}">
+                        <a th:href="@{'getAllTopicByAdmin?pageNum='+${topicList.pageNum-1}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+<!--                </c:if>-->
+<!--                <c:forEach items="${topicList.navigatepageNums}" var="navigatepageNums">-->
+<!--                    <c:if test="${navigatepageNums==topicLists.pageNum }">-->
+<!--                        <li class="active"><a>${navigatepageNums }</a></li>-->
+<!--                    </c:if>-->
+<!--                    <c:if test="${navigatepageNums!=topicLists.pageNum }">-->
+<!--                        <li><a href="${APP_PATH}/selectAllTopic3?pn=${navigatepageNums}">${navigatepageNums }</a></li>-->
+<!--                    </c:if>-->
+<!--                </c:forEach>-->
+<!--                <c:if test="${topicList.hasNextPage}">-->
+                    <li th:if="${topicList.hasNextPage}">
+                        <a th:href="@{'getAllTopicByAdmin?pageNum='+${topicList.pageNum+1}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+<!--                </c:if>-->
+                <li><a th:href="@{'getAllTopicByAdmin?pageNum='+${topicList.pages }}">末页</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
 </body>
 </html>

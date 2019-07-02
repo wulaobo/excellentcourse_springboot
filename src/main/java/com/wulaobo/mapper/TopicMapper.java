@@ -20,4 +20,8 @@ public interface TopicMapper {
     List<Topic> getMessageTopicList();
 
     List<Topic> findTopicAnswerById(Integer id);
+
+    List<Topic> getTopicByName(String edituser);
+
+    void updateStateByTopic(Topic topic);
 }

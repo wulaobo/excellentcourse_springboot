@@ -35,7 +35,7 @@ public class AdminController {
             //登录成功
             return "admin/adminHome";
         }
-
+//        model.addAttribute("","");
         return "redirect:/admin";
     }
 

@@ -53,4 +53,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="findTopicAnswerById" parameterType="Integer" resultMap="queryForListMap">
         select a.content,a.answeruser,a.pubtime2,a.topicId,a.state2 from t_answer a,t_topic t where a.topicId=#{id} and t.id=#{id} and t.state!=0
     </select>
+
+    <select id="getTopicByName" parameterType="String" resultType="topic">
+        select * from t_topic where edituser like '%${_parameter}%'
+    </select>
+
+    <update id="updateStateByTopic" parameterType="topic">
+        update t_topic set state = #{state} where id=#{id}
+    </update>
+
+
 </mapper>

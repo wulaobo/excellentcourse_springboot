@@ -49,4 +49,16 @@ public class TopicServiceImpl implements TopicService {
     public List<Topic> findTopicAnswerById(Integer id) {
         return topicMapper.findTopicAnswerById(id);
     }
+
+    @Override
+    public List<Topic> getTopicByName(String edituser) {
+        return topicMapper.getTopicByName(edituser);
+    }
+
+    @Override
+    public void updateStateByTopic(Topic topic) {
+        topicMapper.updateStateByTopic(topic);
+    }
+
+
 }

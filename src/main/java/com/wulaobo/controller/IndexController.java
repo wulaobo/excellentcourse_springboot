@@ -63,5 +63,10 @@ public class IndexController {
         return "admin/news/addNews";
    }
 
+   //跳转到文件上传页
+    @GetMapping(value = "/toSourceUploadPage")
+    public String toSourceUploadPage() {
+        return "admin/source/sourceUpload";
+    }
 
 }

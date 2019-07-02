@@ -1,0 +1,29 @@
+@charset "UTF-8";
+/* Base Reset */
+*{margin: 0;padding: 0;}
+body,ul,ol,li,img{margin:0;padding:0;list-style:none;list-style-type: none;color: #000}
+a{text-decoration: none;color: #000}
+i,em,strong,th{font-style: normal;font-weight: normal;}
+body,p { font-family:   Microsoft YaHei, Helvetica, STHeiti STXihei, Microsoft JhengHei, Tohoma, Arial; }
+img {border: 0px;vertical-align:middle;-ms-interpolation-mode: bicubic;}
+input,select,option,textarea{outline: none;}
+.clear { width:100%; height:0; line-height:0; font-size:0; overflow:hidden; clear:both; display:block; _display:inline;}
+.clearfix:after{clear: both;content: ".";display: block;height: 0;visibility: hidden;}
+.clearfix{display: block; *zoom:1;}
+.left {float: left;}
+.right {float: right;}
+.yahei {font-family: "Microsoft YaHei";}
+.none{display: none;}
+.block{display: block;}
+.w1200{width: 1200px;}
+.w1140{width: 1140px;}
+.w1000{width: 1000px;}
+.wp-wrapper {
+	width: 100%;
+	/*background-color: #fff;*/
+}
+.wp-inner {
+	/*width: auto;*/
+	width: 1200px;
+	margin: 0 auto;
+}

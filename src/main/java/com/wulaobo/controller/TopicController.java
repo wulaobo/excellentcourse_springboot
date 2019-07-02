@@ -94,9 +94,6 @@ public class TopicController {
     public String getMessageTopicList(HttpServletRequest request,
                                       @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum, ModelMap model) {
 
-//        User user = (User) request.getSession().getAttribute("user");
-//        String edituser = user.getUsername();
-
         PageHelper.startPage(pageNum,5);
         List<Topic> list =topicService.getMessageTopicList();
         PageInfo pageInfo = new PageInfo(list);
@@ -104,6 +101,18 @@ public class TopicController {
         return "frontPage/messageList";
     }
 
+
+    @GetMapping(value = "/getAllTopicByAdmin")
+    public String getAllTopicByAdmin(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
+                                     ModelMap model) {
+        PageHelper.startPage(pageNum,5);
+        PageHelper.orderBy("pubtime desc");
+
+        List<Topic> list = topicService.getMessageTopicList();
+        PageInfo pageInfo = new PageInfo(list);
+        model.addAttribute("topicList",pageInfo);
+        return "admin/bbs/topicList";
+    }
 
     //根据id查看具体留言
     @GetMapping(value = "/findTopicAnswerById")
@@ -125,6 +134,43 @@ public class TopicController {
         return "frontPage/topicDetail";
     }
 
+
+    @GetMapping(value = "/getTopicByName")
+    public String getTopicByName(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
+                                 String edituser,ModelMap model) {
+        PageHelper.startPage(pageNum,5);
+        PageHelper.orderBy("pubtime desc");
+        List<Topic> list = topicService.getTopicByName(edituser);
+
+        PageInfo pageInfo = new PageInfo(list);
+        model.addAttribute("topicList",pageInfo);
+        return "admin/bbs/topicList";
+    }
+
+
+    //网站后台
+    @GetMapping(value = "/updateStateByIdAdmin")
+    public String updateStateByIdAdmin(Integer id) {
+
+        Topic topic = topicService.getTopicById(id);
+        if(topic.getState()==1){
+            topic.setState(2);
+        }else{
+            topic.setState(1);
+        }
+        topicService.updateStateByTopic(topic);
+//        model.addAttribute("topic",topic);
+
+        return "forward:/getAllTopicByAdmin";
+    }
+
+    //网站后台，根据id删除帖子
+
+    @GetMapping(value = "/deleteTopicByIdAdmin")
+    public String deleteTopicByIdAdmin(Integer id) {
+        topicService.deleteTopicById(id);
+        return "forward:/getAllTopicByAdmin";
+    }
 
 
 }

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>留言列表</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <h2 class="sub-header">所有留言</h2>
+    <!--搜索表单-->
+<!--    <%&#45;&#45; <form class="navbar-form navbar-right" role="search" action="${APP_PATH}/selectByName">-->
+<!--    <div class="form-group">-->
+<!--        <input type="text" class="form-control" placeholder="请输入用户名关键字" name="username">-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn navbar-btn">搜索</button>-->
+<!--</form> &#45;&#45;%>-->
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>留言用户</th>
+            <th>具体内容</th>
+            <th>发布时间</th>
+            <th>留言状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody th:if="${answerList !=null}">
+<!--        <c:if test="${!empty answerLists}">-->
+<!--            <c:forEach var="answers" items="${answerList.list}">-->
+                <tr th:each="answer:${answerList.list}">
+                    <td th:text="${answer.id}"></td>
+                    <td th:text="${answer.answeruser}"></td>
+                    <td th:utext="${answer.content }"></td>
+                    <td th:text="${answer.pubtime2 }"></td>
+                    <td th:switch="${answer.state2==2}">
+                        <span th:case="true">留言已屏蔽</span>
+                        <span th:case="false">留言未屏蔽</span>
+<!--                        <c:if test="">-->
+<!--                            留言已屏蔽-->
+<!--                        </c:if>-->
+<!--                        <c:if test="${answers.state2==1}">-->
+<!--                            留言未屏蔽-->
+<!--                        </c:if>-->
+                    </td>
+                    <td>
+<!--                        <shiro:hasRole name="admin">-->
+                            <div class="btn-group">
+                                <button type="button"
+                                        class="btn btn-sm btn-default dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    操作 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a th:href="@{'updateAnswerStateByIdAdmin?id='+${answer.id}}">更改留言状态</a></li>
+                                    <li><a th:href="@{'deleteAnswerByIdAdmin?id='+${answer.id }}">删除留言</a></li>
+                                </ul>
+                            </div>
+<!--                        </shiro:hasRole>-->
+                    </td>
+                </tr>
+<!--            </c:forEach>-->
+<!--        </c:if>-->
+        </tbody>
+    </table>
+    <!-- 分页信息 -->
+    <div class="col-md-6">
+        当前<span class="label label-default" th:text="${answerList.pageNum }"></span>页
+        |总<span class="label label-default" th:text="${answerList.pages }"></span>页
+        |有<span class="label label-default" th:text="${answerList.total }"></span>个留言.
+    </div>
+    <div class="col-md-6">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li><a th:href="@{getAllAnswerByAdmin}">首页</a></li>
+<!--                <c:if test="${answerLists.hasPreviousPage}">-->
+                    <li th:if="${answerList.hasPreviousPage}">
+                        <a th:href="@{'getAllAnswerByAdmin?pageNum='+${answerList.pageNum-1}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+<!--                </c:if>-->
+<!--                <c:forEach items="${answerLists.navigatepageNums}" var="navigatepageNums">-->
+<!--                    <c:if test="${navigatepageNums==answerLists.pageNum }">-->
+<!--                        <li class="active"><a>${navigatepageNums }</a></li>-->
+<!--                    </c:if>-->
+<!--                    <c:if test="${navigatepageNums!=answerLists.pageNum }">-->
+<!--                        <li><a href="${APP_PATH}/selectAllAnswer?pn=${navigatepageNums}">${navigatepageNums }</a></li>-->
+<!--                    </c:if>-->
+<!--                </c:forEach>-->
+<!--                <c:if test="${answerLists.hasNextPage}">-->
+                    <li th:if="${answerList.hasNextPage}">
+                        <a th:href="${'getAllAnswerByAdmin?pageNum='+${answerList.pageNum+1}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+<!--                </c:if>-->
+                <li><a th:href="@{'getAllAnswerByAdmin?pageNum='+${answerList.pages }}">末页</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
