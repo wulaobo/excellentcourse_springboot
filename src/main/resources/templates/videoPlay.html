@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>在线视频播放</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--<div th:replace="header::header1"></div><br/><br/><br/>-->
+<div class="panel panel-default">
+    <div class="panel-body" align="center">
+        <div id="a1" align="center" th:text="${title}"></div><br/>
+        <video width="600" height="400" align="center" controls>
+            <source th:src="@{'/upload/'+${path}}" type="video/mp4">
+
+            您的浏览器不支持 HTML5 video 标签。
+        </video>
+
+    </div>
+</div>
+
+</body>
+
+</html>

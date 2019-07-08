@@ -1,12 +1,10 @@
-package com.wulaobo.mapper;
-
+package com.wulaobo.service;
 
 import com.wulaobo.bean.Video;
 
 import java.util.List;
 
-public interface VideoMapper {
-
+public interface VideoService {
     boolean addVideo(Video video);
 
     List<Video> getVideoList();

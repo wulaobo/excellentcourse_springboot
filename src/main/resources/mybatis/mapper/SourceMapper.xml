@@ -4,6 +4,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wulaobo.mapper.SourceMapper">
 
+    <insert id="addSource" parameterType="source">
+        insert into t_source (filename,filepath,pubtime) values (#{filename},#{filepath},#{pubtime})
+    </insert>
 
+    <select id="getSourceList" resultType="source">
+        select * from t_source
+    </select>
+
+
+    <delete id="deleteSourceById" parameterType="Integer">
+        delete from t_source where id=#{id}
+    </delete>
+
+    <select id="getSourceById" parameterType="Integer" resultType="source">
+        select * from t_source where id=#{id}
+    </select>
 
 </mapper>

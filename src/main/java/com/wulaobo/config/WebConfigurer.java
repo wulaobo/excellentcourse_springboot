@@ -16,7 +16,7 @@ public class WebConfigurer implements WebMvcConfigurer {
     //这个方法用来配置静态资源，如html,css,js等等
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:D:/upload/");
     }
 
     //这个方法用来注册拦截器的，我们编写的拦截器需要在这里添加注册才能生效

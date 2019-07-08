@@ -1,22 +1,24 @@
 package com.wulaobo.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class FileEntity {
-	private int id;
+public class Video implements Serializable {
+	private Integer id;
 	private String type;
 	private String size;
 	private String path;
-	private String titleOrig;
-	private String titleAlter;
+	private String title;
 	private Timestamp uploadTime;
-	
-	public int getId() {
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getType() {
 		return type;
 	}
@@ -35,18 +37,15 @@ public class FileEntity {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public String getTitleOrig() {
-		return titleOrig;
+
+	public String getTitle() {
+		return title;
 	}
-	public void setTitleOrig(String titleOrig) {
-		this.titleOrig = titleOrig;
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getTitleAlter() {
-		return titleAlter;
-	}
-	public void setTitleAlter(String titleAlter) {
-		this.titleAlter = titleAlter;
-	}
+
 	public Timestamp getUploadTime() {
 		return uploadTime;
 	}
@@ -56,13 +55,12 @@ public class FileEntity {
 
 	@Override
 	public String toString() {
-		return "FileEntity{" +
+		return "Video{" +
 				"id=" + id +
 				", type='" + type + '\'' +
 				", size='" + size + '\'' +
 				", path='" + path + '\'' +
-				", titleOrig='" + titleOrig + '\'' +
-				", titleAlter='" + titleAlter + '\'' +
+				", title='" + title + '\'' +
 				", uploadTime=" + uploadTime +
 				'}';
 	}

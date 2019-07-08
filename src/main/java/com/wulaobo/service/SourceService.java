@@ -1,12 +1,10 @@
-package com.wulaobo.mapper;
-
+package com.wulaobo.service;
 
 import com.wulaobo.bean.Source;
 
 import java.util.List;
 
-public interface SourceMapper {
-
+public interface SourceService {
     boolean addSource(Source source);
 
     List<Source> getSourceList();

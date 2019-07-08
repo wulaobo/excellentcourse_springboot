@@ -4,4 +4,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wulaobo.mapper.VideoMapper">
 
+    <insert id="addVideo" parameterType="video">
+        insert into t_video (title,size,type,path,uploadTime) values (#{title},#{size},#{type},#{path},#{uploadTime})
+    </insert>
+
+    <select id="getVideoList" resultType="video">
+        select * from t_video
+    </select>
+
+    <select id="getVideoById" parameterType="Integer" resultType="video">
+        select * from t_video where id=#{id}
+    </select>
+
+    <delete id="deleteVideoById" parameterType="Integer">
+        delete from t_video where id=#{id}
+    </delete>
 </mapper>

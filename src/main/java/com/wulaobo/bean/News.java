@@ -1,16 +1,21 @@
 package com.wulaobo.bean;
 
-public class News {
-	private int id;
+import java.io.Serializable;
+
+public class News implements Serializable {
+	private Integer id;
     private String title;
     private String article;
     private String time;
-	public int getId() {
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}

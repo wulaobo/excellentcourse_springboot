@@ -1,24 +1,43 @@
 package com.wulaobo.bean;
 
-public class Answer {
-	private int id;
-	private int state2;
+import java.io.Serializable;
+
+public class Answer implements Serializable {
+	private Integer id;
+	private Integer state2;
 	private String content;
 	private String answeruser;
 	private String pubtime2;
-	private int topicId;
-	public int getId() {
+	private Integer topicId;
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getState2() {
+
+	public Integer getTopicId() {
+		return topicId;
+	}
+
+	public void setTopicId(Integer topicId) {
+		this.topicId = topicId;
+	}
+
+	public void setAnsweruser(String answeruser) {
+		this.answeruser = answeruser;
+	}
+
+	public Integer getState2() {
 		return state2;
 	}
-	public void setState2(int state2) {
+
+	public void setState2(Integer state2) {
 		this.state2 = state2;
 	}
+
 	public String getPubtime2() {
 		return pubtime2;
 	}
@@ -34,15 +53,7 @@ public class Answer {
 	public String getAnsweruser() {
 		return answeruser;
 	}
-	public void setAnsweruser(String answeruser) {
-		this.answeruser = answeruser;
-	}
-	public int getTopicId() {
-		return topicId;
-	}
-	public void setTopicId(int topicId) {
-		this.topicId = topicId;
-	}
+
 
 	@Override
 	public String toString() {

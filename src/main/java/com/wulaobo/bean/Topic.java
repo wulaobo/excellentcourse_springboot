@@ -1,16 +1,12 @@
 package com.wulaobo.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Topic {
-	private int id;
-	private int state;
-	public int getState() {
-		return state;
-	}
-	public void setState(int state) {
-		this.state = state;
-	}
+public class Topic implements Serializable {
+	private Integer id;
+	private Integer state;
+
 	private String title;
 	private String pubtime;
 	private String detail;
@@ -23,12 +19,23 @@ public class Topic {
 	public void setAnswer(List<Answer> answer) {
 		this.answer = answer;
 	}
-	public int getId() {
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}

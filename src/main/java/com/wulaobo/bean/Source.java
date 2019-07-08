@@ -1,15 +1,30 @@
 package com.wulaobo.bean;
 
-public class Source {
-	private int id;
+import java.io.Serializable;
+
+public class Source implements Serializable {
+	private Integer id;
 	private String filename;
+	private String filepath;
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
 	private String pubtime;
-	public int getId() {
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getFilename() {
 		return filename;
 	}
@@ -29,6 +44,7 @@ public class Source {
 		return "Source{" +
 				"id=" + id +
 				", filename='" + filename + '\'' +
+				", filepath='" + filepath + '\'' +
 				", pubtime='" + pubtime + '\'' +
 				'}';
 	}

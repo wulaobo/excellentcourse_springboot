@@ -1,13 +1,15 @@
 package com.wulaobo.bean;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
 	private Integer id;
 	private String username;
 	private String password;
 	private String email;
-	private int state;
-	private int roleId;
+	private Integer state;
+	private Integer roleId;
 	public Integer getId() {
 		return id;
 	}
@@ -32,17 +34,21 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getState() {
-		return state;
-	}
-	public void setState(int state) {
-		this.state = state;
-	}
-	public int getRoleId() {
+
+	public Integer getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(int roleId) {
+
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 	@Override

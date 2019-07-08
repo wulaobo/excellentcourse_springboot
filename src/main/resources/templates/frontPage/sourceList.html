@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>资料下载</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <div class="text-right ">
+        <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+        <a th:href="@{getAllNews}" >点此返回主页</a>
+    </div>
+    <h2 class="sub-header">所有资料</h2>
+    <!--搜索表单-->
+    <!--    <%&#45;&#45; <form class="navbar-form navbar-right" role="search" action="${APP_PATH}/selectByName">-->
+    <!--    <div class="form-group">-->
+    <!--        <input type="text" class="form-control" placeholder="请输入用户名关键字" name="username">-->
+    <!--    </div>-->
+    <!--    <button type="submit" class="btn navbar-btn">搜索</button>-->
+    <!--</form> &#45;&#45;%>-->
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>文件名</th>
+            <th>上传时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody th:if="${sourceList != null}">
+        <!--        <c:if test="${!empty sourceList}">-->
+        <!--            <c:forEach var="source" items="">-->
+        <tr th:each="source:${sourceList.list}">
+            <td th:text="${source.id}"></td>
+            <td th:text="${source.filename}"></td>
+            <td th:text="${source.pubtime}"></td>
+            <td><button><a th:href="@{'downloadSourceById?id='+${source.id}}">下载</a></button></td>
+        </tr>
+        <!--            </c:forEach>-->
+        <!--        </c:if>-->
+        </tbody>
+    </table>
+    <!-- 分页信息 -->
+    <div class="col-md-6">
+        当前<span class="label label-default" th:text="${sourceList.pageNum }"></span>页
+        |总<span class="label label-default" th:text="${sourceList.pages }"></span>页
+        |有<span class="label label-default" th:text="${sourceList.total }"></span>个资料.
+    </div>
+    <div class="col-md-6">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li><a th:href="@{getSourceList}">首页</a></li>
+                <!--                <c:if test="${sourceList.hasPreviousPage}">-->
+                <li th:if="${sourceList.hasPreviousPage}">
+                    <a th:href="@{'getSourceList?pageNum='+${sourceList.pageNum-1}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <!--                </c:if>-->
+                <!--                <c:forEach items="${sourceList.navigatepageNums}" var="navigatepageNums">-->
+                <!--                    <c:if test="${navigatepageNums==sourceList.pageNum }">-->
+                <!--                        <li class="active"><a>${navigatepageNums }</a></li>-->
+                <!--                    </c:if>-->
+                <!--                    <c:if test="${navigatepageNums!=sourceList.pageNum }">-->
+                <!--                        <li><a href="${APP_PATH}/getAllSource?pn=${navigatepageNums}">${navigatepageNums }</a></li>-->
+                <!--                    </c:if>-->
+                <!--                </c:forEach>-->
+                <!--                <c:if test="${sourceList.hasNextPage}">-->
+                <li th:if="${sourceList.hasNextPage}">
+                    <a th:href="@{'getSourceList?pageNum='+${sourceList.pageNum+1}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <!--                </c:if>-->
+                <li><a th:href="@{'getSourceList?pageNum='+${sourceList.pages }}">末页</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+
+
+</html>

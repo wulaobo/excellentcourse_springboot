@@ -69,4 +69,16 @@ public class IndexController {
         return "admin/source/sourceUpload";
     }
 
+    //跳转到视频上传页面
+    @GetMapping(value = "/toVideoUploadPage")
+    public String toVideoUploadPage() {
+        return "admin/video/videoUpload";
+    }
+
+    //跳转到管理员主页
+    @GetMapping(value = "/toAdminHome")
+    public String toAdminHome() {
+        return "admin/adminHome";
+    }
+
 }
