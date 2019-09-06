@@ -13,7 +13,7 @@
     <div class="panel-body" align="center">
         <div id="a1" align="center" th:text="${title}"></div><br/>
         <video width="600" height="400" align="center" controls>
-            <source th:src="@{'/upload/'+${path}}" type="video/mp4">
+            <source th:src="@{${path}}" type="video/mp4">
 
             您的浏览器不支持 HTML5 video 标签。
         </video>

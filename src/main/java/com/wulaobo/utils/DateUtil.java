@@ -12,7 +12,7 @@ public class DateUtil {
     	//获取当前日期
 		Date currentTime = new Date();
 		//将日期转化为指定格式
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String getNowTimeString = formatter.format(currentTime);
     	return getNowTimeString;
     }

@@ -48,6 +48,9 @@
         |有<span class="label label-default" th:text="${pageInfo.total }"></span>个视频.
     </div>
     <div class="col-md-6">
+        <span th:text="${msg}"></span>
+    </div>
+    <div class="col-md-6">
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li><a th:href="@{'getVideoList'}">首页</a></li>

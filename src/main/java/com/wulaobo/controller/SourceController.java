@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.wulaobo.bean.Source;
 import com.wulaobo.service.SourceService;
 import com.wulaobo.utils.DateUtil;
+import com.wulaobo.utils.FastDFSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,80 +28,73 @@ public class SourceController {
 
     @PostMapping(value = "/sourceUpload")
     public String sourceUpload(MultipartFile file, HttpServletRequest request) {
-          Source source = new Source();
+        Source source = new Source();
 //          String path = request.getServletContext().getRealPath("source");
-          String path = "D:/upload/source/";
+//          String path = "D:/upload/source/";
 //        source.setPubtime(DateUtil.getNowTime());
-          String filename = file.getOriginalFilename();
-          source.setFilename(filename);
+        String filename = file.getOriginalFilename();
+        source.setFilename(filename);
 
-          source.setPubtime(DateUtil.getNowTime());
+        //上传文件的关键两行代码
+        String str = FastDFSClient.uploadFile(file);
+        String filepath = FastDFSClient.getResAccessUrl(str);
 
-          File fileDir = new File(path,filename);
-          //检测是否存在目录
-          if(!fileDir.getParentFile().exists()) {
-              fileDir.getParentFile().mkdirs();
-          }
-          source.setFilepath(path+filename);
-          boolean result = sourceService.addSource(source);
-          if(result) {
-              try {
-                  file.transferTo(fileDir);
-                  return "admin/uploadSuccess";
-              } catch (IOException e) {
-                  e.printStackTrace();
-              }
-          }
+        source.setPubtime(DateUtil.getNowTime());
 
-          return "failed";
+        source.setFilepath(filepath);
+        boolean result = sourceService.addSource(source);
+        if (result) {
+            try {
+//                file.transferTo(fileDir);
+                return "admin/uploadSuccess";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "failed";
     }
 
 
     @GetMapping(value = "/getSourceListByUser")
-    public String getSourceListByUser(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
-                                      ModelMap model){
-        PageHelper.startPage(pageNum,5);
+    public String getSourceListByUser(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                      ModelMap model) {
+        PageHelper.startPage(pageNum, 5);
         PageHelper.orderBy("pubtime desc");
 
         List<Source> sourceList = sourceService.getSourceList();
 
         PageInfo pageInfo = new PageInfo(sourceList);
 
-        model.addAttribute("sourceList",pageInfo);
+        model.addAttribute("sourceList", pageInfo);
         return "frontPage/sourceList";
     }
 
 
     @GetMapping(value = "/getSourceList")
-    public String getSourceList(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
+    public String getSourceList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                 ModelMap model) {
 
-        PageHelper.startPage(pageNum,5);
+        PageHelper.startPage(pageNum, 5);
         PageHelper.orderBy("pubtime desc");
 
         List<Source> sourceList = sourceService.getSourceList();
 
         PageInfo pageInfo = new PageInfo(sourceList);
 
-        model.addAttribute("sourceList",pageInfo);
+        model.addAttribute("sourceList", pageInfo);
         return "admin/source/sourceList";
     }
 
     @GetMapping(value = "/deleteSourceById")
-    public String deleteSourceById(Integer id,ModelMap model) {
-
+    public String deleteSourceById(Integer id, ModelMap model) {
 
         Source source = sourceService.getSourceById(id);
-
-        if(source!=null) {
-
-            boolean result = sourceService.deleteSourceById(id);
-            if(result){
-                //文件从数据库删除后，将本地磁盘中的文件删除
-                File file = new File(source.getFilepath());
-                if(file.exists()){
-                    file.delete();
-                }
+        if (source != null) {
+            //先从fastdfs文件服务器删除文件，在删除数据库中的数据
+            boolean result = FastDFSClient.deleteFile(source.getFilepath());
+            if (result) {
+                sourceService.deleteSourceById(id);
                 return "forward:/getSourceList";
             }
             return "failed";
@@ -109,36 +103,46 @@ public class SourceController {
         return "failed";
     }
 
-
+    //http://114.55.93.197/group1/M00/00/00/rBAmt11xuwqAEBxFAANalRLpucE09.docx
     @GetMapping(value = "/downloadSourceById")
-    public void downloadSourceById(Integer id, HttpServletResponse response) throws IOException {
+    public String downloadSourceById(Integer id, ModelMap model) throws IOException {
 
         Source source = sourceService.getSourceById(id);
 
-
-        try {
-            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(source.getFilepath(), "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        File file = new File("D:\\down\\source\\" + source.getFilename());
+        boolean result = FastDFSClient.downloadFile(source.getFilepath(), file);
+        if (result) {
+            System.out.println("下载文件：" + file.getName() + " 成功");
+            model.addAttribute("msgfile","下载成功");
+        } else {
+            System.out.println("下载失败！");
+            model.addAttribute("msgfile","下载失败");
         }
+        return "forward:/getSourceList";
 
-        FileInputStream fis = new FileInputStream(source.getFilepath());
-        OutputStream fos =  null;
-        try {
-            fos = response.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        byte[] buffer = new byte[1024];
-        int len = 0;
-
-        while((len = fis.read(buffer))>0) {
-            fos.write(buffer,0,len);
-        }
-
-        fis.close();
-        fos.close();
+//        try {
+//            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(source.getFilepath(), "UTF-8"));
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        FileInputStream fis = new FileInputStream(source.getFilepath());
+//        OutputStream fos =  null;
+//        try {
+//            fos = response.getOutputStream();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        byte[] buffer = new byte[1024];
+//        int len = 0;
+//
+//        while((len = fis.read(buffer))>0) {
+//            fos.write(buffer,0,len);
+//        }
+//
+//        fis.close();
+//        fos.close();
 
     }
 

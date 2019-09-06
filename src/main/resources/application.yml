@@ -1,0 +1,63 @@
+#端口
+server:
+  port: 8888
+  servlet:
+    context-path: /
+
+#设置静态资源的访问根路径为 /
+spring:
+  resources:
+    static-locations: classpath:/   #设置静态资源的访问根路径为 /
+  thymeleaf:
+    cache: false   #页面模板缓存
+  datasource:
+    url: jdbc:mysql://114.55.93.197:3306/excellentcourse?serverTimezone=UTC
+    username: root
+    password: 250123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      max-request-size: 1000MB
+      max-file-size: 100MB
+
+
+#mybatis配置
+mybatis:
+  config-location: classpath:mybatis/mybatis_config.xml
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml
+
+#pagehelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: reasonable
+  support-methods-arguments: true
+  params: count=countSql
+
+# 分布式文件系统fastdfs配置
+fdfs:
+  # socket连接超时时长
+  soTimeout: 1500
+  # 连接tracker服务器超时时长
+  connectTimeout: 600
+  pool:
+    # 从池中借出的对象的最大数目
+    max-total: 153
+    # 获取连接时的最大等待毫秒数100
+    max-wait-millis: 102
+  # 缩略图生成参数，可选
+  thumbImage:
+    width: 150
+    height: 150
+  # 跟踪服务器tracker_server请求地址,支持多个，这里只有一个，如果有多个在下方加- x.x.x.x:port
+  trackerList:
+    - 114.55.93.197:22122
+  #
+  # 存储服务器storage_server访问地址
+  web-server-url: http://114.55.93.197/
+  spring:
+    http:
+      multipart:
+        max-file-size: 100MB # 最大支持文件大小
+        max-request-size: 100MB # 最大支持请求大小
+
