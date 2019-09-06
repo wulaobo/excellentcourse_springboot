@@ -28,18 +28,6 @@ public class ExcellentcourseSpringbootApplicationTests {
     }
 
     @Test
-    public void download() {
-        Video video = videoService.getVideoById(7);
-        File file = new File("D:\\down\\video\\"+video.getTitle()+".mp4");
-        boolean result = FastDFSClient.downloadFile(video.getPath(),file);
-        if(result) {
-            System.out.println("下载文件："+file.getName()+" 成功");
-        }else{
-            System.out.println("下载失败！");
-        }
-    }
-
-    @Test
     public void Delete() {
         FastDFSClient.deleteFile("group1/M00/00/00/rBAmt11woi6AMFZgAAAcR6eHEc4208.jpg");
     }

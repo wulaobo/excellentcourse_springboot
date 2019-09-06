@@ -70,7 +70,12 @@ public class SourceController {
         return "frontPage/sourceList";
     }
 
-
+    /**
+     * 管理员
+     * @param pageNum
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/getSourceList")
     public String getSourceList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                 ModelMap model) {
@@ -118,7 +123,7 @@ public class SourceController {
             System.out.println("下载失败！");
             model.addAttribute("msgfile","下载失败");
         }
-        return "forward:/getSourceList";
+        return "forward:/getSourceListByUser";
 
 //        try {
 //            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(source.getFilepath(), "UTF-8"));

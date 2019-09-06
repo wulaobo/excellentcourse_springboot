@@ -34,15 +34,14 @@ public class VideoController {
         Video video = new Video();
 
         String str = FastDFSClient.uploadFile(file);
-        FastDFSClient.getResAccessUrl(str);
+        String filepath = FastDFSClient.getResAccessUrl(str);
 
         String videoName = file.getOriginalFilename();  //获取上传后的文件名
-        File uploadFile = new File(FastDFSClient.getResAccessUrl(str));
-        video.setPath(FastDFSClient.getResAccessUrl(str));
+        video.setPath(filepath);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         video.setUploadTime(timestamp);
         video.setTitle(title);
-        video.setSize(this.getSize(uploadFile));
+        video.setSize(this.getSize(file.getSize()));
         video.setType(this.getFileExt(videoName));
         boolean result = videoService.addVideo(video);
         if (result) {
@@ -124,7 +123,7 @@ public class VideoController {
             System.out.println("下载失败！");
             model.addAttribute("msg","下载失败");
         }
-        return "forward:/getVideoList";
+        return "forward:/getVideoListByUser";
 //        String dict = "D:/upload/";
 //        File file = new File(dict, video.getPath());
 //
@@ -178,9 +177,8 @@ public class VideoController {
      *
      * @return
      */
-    private String getSize(File file) {
+    private String getSize(long fileLength) {
         String size = "";
-        long fileLength = file.length();
         DecimalFormat df = new DecimalFormat("#.00");
         if (fileLength < 1024) {
             size = df.format((double) fileLength) + "BT";

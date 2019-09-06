@@ -18,7 +18,7 @@ public class IndexController {
     //由于springboot不支持通过a标签来直接访问html,所以通过这种方式来找到登陆页面
     @GetMapping("/toLogin")
     public String toLogin() {
-        return "index";
+        return "login";
     }
 
     @GetMapping("/toRegister")
