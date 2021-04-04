@@ -1,5 +1,8 @@
 package com.wulaobo.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.wulaobo.bean.Topic;
 import com.wulaobo.bean.User;
 import com.wulaobo.service.UserService;
 import com.wulaobo.utils.MD5Utils;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -77,15 +81,22 @@ public class UserController {
             String md5Pwd = MD5Utils.md5(password);
 //            user.setPassword(md5Pwd);
 //            userService.save(user);
-            userService.updatePasswordByUserName(md5Pwd,userName);
+            userService.updatePasswordByUserName(md5Pwd,email,userName);
             model.addAttribute("updateSuccess","修改成功，请重新登录！");
         }
         return "redirect:/toLogin";
     }
 
+    //获取积分排行榜
+    @GetMapping(value = "/getScoreBoardList")
+    public String getScoreBoardList(HttpServletRequest request,
+                                    @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum, ModelMap model) {
 
-
-
-
+        PageHelper.startPage(pageNum,5);
+        List<User> list =userService.getScoreBoardList();
+        PageInfo pageInfo = new PageInfo(list);
+        model.addAttribute("topicLists",pageInfo);
+        return "frontPage/scoreboardList";
+    }
 
 }

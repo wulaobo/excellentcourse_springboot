@@ -10,6 +10,8 @@ public class User implements Serializable {
 	private String email;
 	private Integer state;
 	private Integer roleId;
+	private Integer integral;
+	private Integer isUpload;
 	public Integer getId() {
 		return id;
 	}
@@ -51,6 +53,23 @@ public class User implements Serializable {
 		this.state = state;
 	}
 
+	public Integer getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(Integer integral) {
+		this.integral = integral;
+	}
+
+
+	public Integer getIsUpload() {
+		return isUpload;
+	}
+
+	public void setIsUpload(Integer isUpload) {
+		this.isUpload = isUpload;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -60,6 +79,8 @@ public class User implements Serializable {
 				", email='" + email + '\'' +
 				", state=" + state +
 				", roleId=" + roleId +
+				", integral=" + integral +
+				", isUpload=" + isUpload +
 				'}';
 	}
 }

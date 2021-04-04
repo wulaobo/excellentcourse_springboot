@@ -11,5 +11,5 @@ public interface VideoService {
 
     Video getVideoById(Integer id);
 
-    boolean deleteVideoById(Integer id);
+    int deleteVideoById(Integer id);
 }

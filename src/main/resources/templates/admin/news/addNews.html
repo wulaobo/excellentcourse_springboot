@@ -10,6 +10,10 @@
 </head>
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
+    <div class="text-right ">
+        <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+        <a th:href="@{toAdminHome}" >点此返回主页</a>
+    </div>
     <form th:action="@{addNews}" method="post">
         <div class="table-responsive">
             <h2 class="sub-header">添加文章</h2>

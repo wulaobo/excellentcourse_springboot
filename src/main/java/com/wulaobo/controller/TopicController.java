@@ -101,7 +101,6 @@ public class TopicController {
         return "frontPage/messageList";
     }
 
-
     @GetMapping(value = "/getAllTopicByAdmin")
     public String getAllTopicByAdmin(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
                                      ModelMap model) {

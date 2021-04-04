@@ -5,15 +5,16 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">巢湖学院《数字电视原理与应用》精品课程</a>
+            <a class="navbar-brand" href="#">在线学习交流平台</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
                 <li><a href="getAllNews">首页</a></li>
                 <li><a href="getVideoListByUser">视频教程</a></li>
                 <li><a href="getSourceListByUser">资料下载</a></li>
-                <li><a href="getMessageTopicList">留言板</a></li>
+                <li><a href="getMessageTopicList">学习论坛</a></li>
                 <li><a href="toUserHome">个人中心</a></li>
+                <li><a href="getScoreBoardList">积分排行榜</a></li>
                 <li><a href="toAbout">关于</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" th:if="${session.user==null}">

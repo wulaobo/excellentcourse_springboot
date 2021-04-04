@@ -11,7 +11,7 @@
 <div class="col-sm-8 col-sm-offset-2 col-md-11 col-md-offset-1 main">
     <div class="text-right ">
         <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
-        <a th:href="@{getAllNews}" >点此返回主页</a>
+        <a th:href="@{getAllNews}">点此返回主页</a>
     </div>
     <h2 class="sub-header">所有视频</h2>
 
@@ -34,8 +34,13 @@
             <td th:text="${video.title}"></td>
             <td th:text="${video.type}"></td>
             <td th:text="${video.uploadTime}"></td>
-            <td><button><a th:href="@{'videoPlayByIdAndAdmin?id='+${video.id }}">播放</a></button></td>
-            <td><button><a th:href="@{'downloadVideoById?id='+${video.id}}">下载</a></button></td>
+                        <td><button><a  th:href="@{'videoPlayByIdAndAdmin?id='+${video.id }}">播放</a></button></td>
+<!--            <td>-->
+<!--                <button><a th:onclick="|bofang(${video.id})|" href="javascript:;">播放</a></button>-->
+<!--            </td>-->
+            <td>
+                <button><a th:href="@{'downloadVideoById?id='+${video.id}}">下载</a></button>
+            </td>
         </tr>
         <!--            </c:forEach>-->
         <!--        </c:if>-->
@@ -82,4 +87,37 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    function bofang(id) {
+        var videoId = id;
+        var msg = "播放该视频会花费5积分，确认吗？";
+        if (confirm(msg) == true) {
+            // $.ajax({
+            //     type:"GET",
+            //     url:"/videoPlayByIdAndAdmin",
+            //     data: {
+            //         id:videoId
+            //     },     //参数
+            //     success:function(data){
+            //         console.log(data);
+            //     },
+            //     error:function(msg){
+            //         console.log(msg)
+            //     }
+            // });
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if( xhr.readyState == 4){
+                    if( xhr.status >= 200 && xhr.status < 300 || xhr.status == 304){
+                        info.innerHTML = xhr.responseText;
+                    }
+                }
+            };
+
+            // 每次需要发请求需要做两步：
+            xhr.open("get", "videoPlayByIdAndAdmin?id="+videoId, true);
+            xhr.send(null);
+        }
+    }
+</script>
 </html>

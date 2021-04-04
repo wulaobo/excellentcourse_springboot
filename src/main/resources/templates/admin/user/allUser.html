@@ -9,6 +9,10 @@
 </head>
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <div class="text-right ">
+        <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+        <a th:href="@{toAdminHome}" >点此返回主页</a>
+    </div>
     <h2 class="sub-header">所有用户</h2>
     <!--搜索表单-->
     <form class="navbar-form navbar-right" role="search" th:action="@{selectByName}">
@@ -24,6 +28,7 @@
             <th>姓名</th>
             <th>权限/分组</th>
             <th>用户状态</th>
+            <th>积分</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -42,6 +47,7 @@
                         <span th:case="false">用户账号已激活</span>
 
                     </td>
+                    <td th:text="${user.integral}"></td>
                     <td>
 
                             <div class="btn-group">

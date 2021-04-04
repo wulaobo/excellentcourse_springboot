@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>互动交流</title>
+    <title>学习论坛</title>
     <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
     <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/static/css/style3.css}">
@@ -14,7 +14,7 @@
 <div th:replace="header::header1"></div>
 <div class="container">
     <div class="col-md-7 col-md-offset-2 main">
-        <h3 class="text-info">所有留言</h3><br/>
+        <h3 class="text-info">所有帖子</h3><br/>
         <div th:each="topics:${topicLists.list}">
             <div>
                 <span th:text="${topics.title}"></span>

@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wulaobo.bean.Video;
 import com.wulaobo.service.VideoService;
-import com.wulaobo.utils.FastDFSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,16 +31,24 @@ public class VideoController {
     @PostMapping(value = "/videoUpload")
     public String videoUpload(String title, MultipartFile file, HttpServletRequest request) throws IOException {
         Video video = new Video();
-
-        String str = FastDFSClient.uploadFile(file);
-        String filepath = FastDFSClient.getResAccessUrl(str);
-
         String videoName = file.getOriginalFilename();  //获取上传后的文件名
-        video.setPath(filepath);
+        // String newVideoName = this.getName(videoName);  //根据上传的文件名重新生成一份新的文件名
+//        String path = request.getServletContext().getRealPath("video");
+        String path = "D:/upload/video/";
+        File videoPath = new File(path, videoName);
+
+        if (!videoPath.getParentFile().exists()) {
+            videoPath.getParentFile().mkdirs();
+        }
+
+
+        file.transferTo(videoPath);
+
+        video.setPath("/video/" + videoName);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         video.setUploadTime(timestamp);
         video.setTitle(title);
-        video.setSize(this.getSize(file.getSize()));
+        video.setSize(this.getSize(videoPath));
         video.setType(this.getFileExt(videoName));
         boolean result = videoService.addVideo(video);
         if (result) {
@@ -89,65 +96,48 @@ public class VideoController {
     public String deleteVideoById(Integer id, ModelMap model) {
 
         Video video = videoService.getVideoById(id);
+
         if (video != null) {
-
-            try{
-                boolean result = FastDFSClient.deleteFile(video.getPath());
-                if (result) {
-                    videoService.deleteVideoById(id);
-//                    File file = new File(video.getPath());
-//                    if (file.exists()) {
-//                        file.delete();
-                        return "forward:/getVideoList";
-//                    }
+            int result = videoService.deleteVideoById(id);
+            if (result > 0) {
+                File file = new File("D:/upload"+video.getPath());
+                if (file.exists()) {
+                    file.delete();
+                    return "forward:/getVideoList";
                 }
-            }catch (Exception e){
-                e.printStackTrace();
             }
-            return "failed";
-
         }
         return "failed";
     }
 
     @GetMapping(value = "/downloadVideoById")
-    public String downloadVideoById(Integer id, ModelMap model) throws IOException {
+    public void downloadVideoById(Integer id, HttpServletResponse response) throws IOException {
 
         Video video = videoService.getVideoById(id);
-        File file = new File("D:\\down\\video\\"+video.getTitle()+".mp4");
-        boolean result = FastDFSClient.downloadFile(video.getPath(),file);
-        if(result) {
-            System.out.println("下载文件："+file.getName()+" 成功");
-            model.addAttribute("msg","下载成功");
-        }else{
-            System.out.println("下载失败！");
-            model.addAttribute("msg","下载失败");
+        String dict = "D:/upload/";
+        File file = new File(dict, video.getPath());
+
+        try {
+            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(video.getPath(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        return "forward:/getVideoListByUser";
-//        String dict = "D:/upload/";
-//        File file = new File(dict, video.getPath());
-//
-//        try {
-//            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(video.getPath(), "UTF-8"));
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//
-//        FileInputStream fis = null;
-//
-//        OutputStream fos = response.getOutputStream();
-//
-//        if (file.exists()) {
-//            fis = new FileInputStream(file);
-//            byte[] buffer = new byte[1024];
-//            int len = 0;
-//            while ((len = fis.read(buffer)) > 0) {
-//                fos.write(buffer, 0, len);
-//            }
-//
-//        }
-//        fis.close();
-//        fos.close();
+
+        FileInputStream fis = null;
+
+        OutputStream fos = response.getOutputStream();
+
+        if (file.exists()) {
+            fis = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while ((len = fis.read(buffer)) > 0) {
+                fos.write(buffer, 0, len);
+            }
+
+        }
+        fis.close();
+        fos.close();
 
     }
 
@@ -177,8 +167,9 @@ public class VideoController {
      *
      * @return
      */
-    private String getSize(long fileLength) {
+    private String getSize(File file) {
         String size = "";
+        long fileLength = file.length();
         DecimalFormat df = new DecimalFormat("#.00");
         if (fileLength < 1024) {
             size = df.format((double) fileLength) + "BT";

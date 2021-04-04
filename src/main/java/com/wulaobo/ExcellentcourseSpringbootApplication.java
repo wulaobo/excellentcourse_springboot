@@ -18,7 +18,7 @@ import org.springframework.jmx.support.RegistrationPolicy;
 public class ExcellentcourseSpringbootApplication {
 
     public static void main(String[] args) {
-        System.out.println("重构毕业设计的工作开始了。。。");
+        System.out.println("欢迎来到我的毕业设计");
         SpringApplication.run(ExcellentcourseSpringbootApplication.class, args);
     }
 

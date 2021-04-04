@@ -9,6 +9,10 @@
 </head>
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <div class="text-right ">
+        <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+        <a th:href="@{toAdminHome}" >点此返回主页</a>
+    </div>
     <h1 th:text="${msg}"></h1>
     <h2 class="sub-header">所有文章</h2>
     <form class="navbar-form navbar-right" role="search" method="post" th:action="@{selectNewsByTitle}">

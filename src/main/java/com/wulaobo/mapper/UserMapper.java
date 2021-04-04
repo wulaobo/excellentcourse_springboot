@@ -1,6 +1,7 @@
 package com.wulaobo.mapper;
 
 import com.wulaobo.bean.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface UserMapper {
 
     User getUserByUserName(String username);
 
-    void updatePasswordByUserName(String md5Pwd, String userName);
+    void updatePasswordByUserName(@Param("md5Pwd") String md5Pwd,@Param("email") String email,@Param("userName") String userName);
 
     User adminLogin(String username, String password);
 
@@ -29,4 +30,6 @@ public interface UserMapper {
     boolean updateStateByUser(User user);
 
     boolean updateAdminPassword(User admin);
+
+    List<User> getScoreBoardList();
 }

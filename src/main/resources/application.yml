@@ -1,6 +1,6 @@
 #端口
 server:
-  port: 8888
+  port: 8080
   servlet:
     context-path: /
 
@@ -11,9 +11,9 @@ spring:
   thymeleaf:
     cache: false   #页面模板缓存
   datasource:
-    url: jdbc:mysql://114.55.93.197:3306/excellentcourse?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/excellentcourse?serverTimezone=UTC
     username: root
-    password: 250123
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
@@ -55,9 +55,5 @@ fdfs:
   #
   # 存储服务器storage_server访问地址
   web-server-url: http://114.55.93.197/
-  spring:
-    http:
-      multipart:
-        max-file-size: 100MB # 最大支持文件大小
-        max-request-size: 100MB # 最大支持请求大小
+
 

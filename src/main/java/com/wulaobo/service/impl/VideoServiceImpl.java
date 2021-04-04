@@ -30,7 +30,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean deleteVideoById(Integer id) {
+    public int deleteVideoById(Integer id) {
         return videoMapper.deleteVideoById(id);
     }
 }

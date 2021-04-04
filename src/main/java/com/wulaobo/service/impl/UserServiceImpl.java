@@ -6,6 +6,8 @@ import com.wulaobo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -28,7 +30,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updatePasswordByUserName(String md5Pwd, String userName) {
-        userMapper.updatePasswordByUserName(md5Pwd,userName);
+    public void updatePasswordByUserName(String md5Pwd,String email, String userName) {
+        userMapper.updatePasswordByUserName(md5Pwd,email,userName);
     }
+
+    @Override
+    public List<User> getScoreBoardList() {
+        return userMapper.getScoreBoardList();
+    }
+
+    @Override
+    public User getUserById(Integer id) {
+        return userMapper.getUserById(id);
+    }
+
+
 }

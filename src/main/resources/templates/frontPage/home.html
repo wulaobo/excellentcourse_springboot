@@ -18,6 +18,7 @@
     <div class="pageSidebar">
         <a th:href="@{toUpdateUser}" target="mainFrame" class="btn"><i class="glyphicon glyphicon-user"></i>修改用户信息</a><br/>
         <a th:href="toAddTopicPage" target="mainFrame" class="btn"><i class="glyphicon glyphicon-edit"></i>发布帖子</a><br/>
+        <a th:href="@{'toUserUploadPage?id='+${session.user.getId()}}" target="mainFrame" class="btn"><i class="glyphicon glyphicon-edit"></i>文件上传</a><br/>
         <a th:href="'getAllTopic?edituser='+${session.user.getUsername()}" target="mainFrame" class="btn"><i class="glyphicon glyphicon-tags"></i>帖子管理</a>
     </div>
     <!-- 左侧导航和正文内容的分隔线 -->

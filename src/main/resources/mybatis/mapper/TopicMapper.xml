@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 查询其他用户的帖子 -->
     <select id="getMessageTopicList"  resultType="topic">
-        select * from t_topic
+        select * from t_topic order by pubtime desc
     </select>
 
     <select id="findTopicAnswerById" parameterType="Integer" resultMap="queryForListMap">
